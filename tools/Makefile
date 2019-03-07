@@ -29,6 +29,7 @@ SWERV_CONFIG = ${RV_ROOT}/configs/swerv.config
 IRUN = irun
 VCS = vcs
 VERILATOR = verilator
+RTLVISIONPRO = rtlvisionpro
 GCC_PREFIX = riscv64-unknown-elf
 
 # Define test name
@@ -72,6 +73,12 @@ irun: ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh
 		-incdir ${RV_ROOT}/design/lib -incdir ${RV_ROOT}/design/include -incdir ${RV_ROOT}/design/dmi -vlog_ext +.vh\
 		${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh ${RV_ROOT}/design/include/def.sv \
 		-incdir ${RV_ROOT}/configs/snapshots/$(snapshot) -f ${RV_ROOT}/design/flist.vcs -elaborate  -snapshot default
+
+rtlvisionpro: ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh
+	$(RTLVISIONPRO) -info warning -compilemode mfcu -sverilog +define+RV_OPENSOURCE +incdir+${RV_ROOT}/design/lib +incdir+${RV_ROOT}/design/include \
+		${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh \
+		+incdir+${RV_ROOT}/design/dmi +incdir+${RV_ROOT}/configs/snapshots/$(snapshot)  +libext+.v ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh \
+		${RV_ROOT}/design/include/def.sv -f ${RV_ROOT}/design/flist.rtlvisionpro
 
 ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh:
 	$(SWERV_CONFIG) -snapshot=$(snapshot)
@@ -124,6 +131,6 @@ endif
 	
 help:
 	@echo Make sure the environment variable RV_ROOT is set.
-	@echo Possible targets: verilator vcs irun help clean all verilator-run irun-run vcs-run program.hex
+	@echo Possible targets: verilator vcs irun rtlvisionpro help clean all verilator-run irun-run vcs-run program.hex
 
-.PHONY: help clean verilator vcs irun verilator-run irun-run  vcs-run
+.PHONY: help clean verilator vcs irun rtlvisionpro verilator-run irun-run  vcs-run
