@@ -75,10 +75,19 @@ irun: ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh
 		-incdir ${RV_ROOT}/configs/snapshots/$(snapshot) -f ${RV_ROOT}/design/flist.vcs -elaborate  -snapshot default
 
 rtlvisionpro: ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh
-	$(RTLVISIONPRO) -info warning -compilemode mfcu -sverilog +define+RV_OPENSOURCE +incdir+${RV_ROOT}/design/lib +incdir+${RV_ROOT}/design/include \
+	$(RTLVISIONPRO) \
+		-info warning \
+		-compilemode mfcu \
+		-sverilog \
+		+define+RV_OPENSOURCE \
+		+incdir+${RV_ROOT}/design/lib \
+		+incdir+${RV_ROOT}/design/include \
+		+incdir+${RV_ROOT}/design/dmi \
+		+incdir+${RV_ROOT}/configs/snapshots/$(snapshot) \
+		+libext+.v \
 		${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh \
-		+incdir+${RV_ROOT}/design/dmi +incdir+${RV_ROOT}/configs/snapshots/$(snapshot)  +libext+.v ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh \
-		${RV_ROOT}/design/include/def.sv -f ${RV_ROOT}/design/flist.rtlvisionpro
+		${RV_ROOT}/design/include/def.sv \
+		-f ${RV_ROOT}/design/flist.rtlvisionpro
 
 ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh:
 	$(SWERV_CONFIG) -snapshot=$(snapshot)
