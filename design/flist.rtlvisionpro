@@ -26,6 +26,7 @@ $RV_ROOT/design/lsu/lsu_clkdomain.sv
 $RV_ROOT/design/lsu/lsu_addrcheck.sv                    
 $RV_ROOT/design/lsu/lsu_lsc_ctl.sv                    
 $RV_ROOT/design/lsu/lsu_stbuf.sv
+$RV_ROOT/design/lsu/lsu_bus_buffer.sv
 $RV_ROOT/design/lsu/lsu_bus_read_buffer.sv
 $RV_ROOT/design/lsu/lsu_bus_write_buffer.sv
 $RV_ROOT/design/lsu/lsu_bus_intf.sv
