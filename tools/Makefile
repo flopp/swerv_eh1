@@ -85,8 +85,7 @@ rtlvisionpro: ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh
 		+incdir+${RV_ROOT}/design/dmi \
 		+incdir+${RV_ROOT}/configs/snapshots/$(snapshot) \
 		+libext+.v \
-		${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh \
-		${RV_ROOT}/design/include/def.sv \
+		$(defines) \
 		-f ${RV_ROOT}/design/flist.rtlvisionpro
 
 ${RV_ROOT}/configs/snapshots/$(snapshot)/common_defines.vh:
